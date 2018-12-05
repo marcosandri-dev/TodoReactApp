@@ -1,3 +1,7 @@
+# TodoReactApp
+
+My TodoApp, in its final form. Part of the app development showcase.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
