@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ListItem from "./list-item";
 
 class List extends Component {
   state = {};
@@ -6,24 +7,19 @@ class List extends Component {
     return (
       <div className="row justify-content-center">
         <div className="col-10">
-          <p id="userID">UserID</p>
-          <p id="page">user</p>
-
-          <div>
-            <div className="row justify-content-center">
-              <div className="col-8">
-                <input
-                  type="text"
-                  id="todoText"
-                  className="form-control"
-                  placeholder="Insert a ToDo!"
-                />
-              </div>
-              <div className="col-2">
-                <button type="button" className="btn btn-primary">
-                  Add
-                </button>
-              </div>
+          <div className="row justify-content-center">
+            <div className="col-8">
+              <input
+                type="text"
+                id="todoText"
+                className="form-control"
+                placeholder="Insert a ToDo!"
+              />
+            </div>
+            <div className="col-2">
+              <button type="button" className="btn btn-primary">
+                Add
+              </button>
             </div>
           </div>
 
@@ -32,6 +28,11 @@ class List extends Component {
               <p>No todos! Relax. :) </p>
             </div>
           </div>
+
+          <ListItem />
+          <ListItem />
+          <ListItem />
+
           <hr />
 
           <div
@@ -40,19 +41,14 @@ class List extends Component {
           >
             <div className="col-5 col-md-3">
               <a href="#" className="btn btn-info btn-block">
-                {" "}
-                Archive{" "}
+                Archive
               </a>
             </div>
             <div className="col-5 col-md-3">
               <button type="button" className="btn btn-success btn-block">
-                {" "}
                 Completa Todos
               </button>
             </div>
-          </div>
-          <div style={{ marginTop: "30px" }}>
-            <p>EH?</p>
           </div>
         </div>
       </div>
