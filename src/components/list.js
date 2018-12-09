@@ -2,7 +2,31 @@ import React, { Component } from "react";
 import ListItem from "./list-item";
 
 class List extends Component {
-  state = {};
+  constructor(props) {
+    super(props);
+    this.addTodo = this.addTodo.bind(this);
+    this.state = {
+      todos: [
+        { id: 1, name: "cose" },
+        { id: 2, name: "altre cose" },
+        { id: 3, name: "troppe cose" }
+      ],
+      value: "",
+      count: 3
+    };
+  }
+
+  addTodo = function() {
+    //this.setState({todos: [{id: this.state.count, name: this.state.value }]);
+    //this.setState({ count: count + 1 });
+    //this.state.todos.push(this.state.value);
+    alert(this.state.value);
+  };
+
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
   render() {
     return (
       <div className="row justify-content-center">
@@ -11,27 +35,35 @@ class List extends Component {
             <div className="col-8">
               <input
                 type="text"
-                id="todoText"
                 className="form-control"
                 placeholder="Insert a ToDo!"
+                name="value"
+                value={this.state.value}
+                onChange={this.onChange}
               />
             </div>
             <div className="col-2">
-              <button type="button" className="btn btn-primary">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={this.addTodo}
+              >
                 Add
               </button>
             </div>
           </div>
 
-          <div className="row justify-content-center" id="noTodosP">
-            <div className="col-10">
-              <p>No todos! Relax. :) </p>
+          {this.state.todos == 0 ? (
+            <div className="row justify-content-center">
+              <div className="col-10">
+                <p>No todos! Relax. :) </p>
+              </div>
             </div>
-          </div>
-
-          <ListItem />
-          <ListItem />
-          <ListItem />
+          ) : (
+            this.state.todos.map(todo => (
+              <ListItem key={todo.id} todo={todo.name} />
+            ))
+          )}
 
           <hr />
 

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 
 class ListItem extends Component {
-  state = {};
+  state = {
+    todo: this.props.todo
+  };
   render() {
     return (
       <div className="list-item">
@@ -10,11 +12,7 @@ class ListItem extends Component {
             <input type="checkbox" className="form-check-input" />
           </div>
           <div className="col-11">
-            <span>
-              lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum
-              dolor sit amet lorem ipsum dolor sit amet m dolor sit amet lorem
-              ipsum dolor sit amet lorem ipsum dolor sit amet
-            </span>
+            <span>{this.state.todo}</span>
           </div>
         </div>
       </div>
