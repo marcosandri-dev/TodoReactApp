@@ -18,7 +18,7 @@ class List extends Component {
 
   addTodo = function() {
     //this.setState({todos: [{id: this.state.count, name: this.state.value }]);
-    //this.setState({ count: count + 1 });
+    this.setState({ count: this.state.count + 1 });
     //this.state.todos.push(this.state.value);
     alert(this.state.value);
   };
