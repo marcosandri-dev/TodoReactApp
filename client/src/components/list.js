@@ -1,26 +1,46 @@
 import React, { Component } from "react";
 import ListItem from "./list-item";
+import axios from "axios";
 
 class List extends Component {
   constructor(props) {
     super(props);
-    this.addTodo = this.addTodo.bind(this);
+
     this.state = {
-      todos: [
-        { id: 1, name: "cose" },
-        { id: 2, name: "altre cose" },
-        { id: 3, name: "troppe cose" }
-      ],
+      todos: [],
       value: "",
       count: 3
     };
+    this.addTodo = this.addTodo.bind(this);
+    this.loadTodos = this.loadTodos.bind(this);
+    this.loadTodos();
   }
 
   addTodo = function() {
-    //this.setState({todos: [{id: this.state.count, name: this.state.value }]);
-    this.setState({ count: this.state.count + 1 });
-    //this.state.todos.push(this.state.value);
-    alert(this.state.value);
+    console.log(this.state.value);
+    axios
+      .post("http://localhost:8000/api/todos", {
+        name: this.state.value
+      })
+      .then(res => {
+        var oldTodos = this.state.todos;
+        oldTodos.push(res.data);
+        this.setState({ todos: oldTodos });
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
+  };
+
+  loadTodos = function() {
+    axios
+      .get("http://localhost:8000/api/todos")
+      .then(res => {
+        this.setState({ todos: res.data });
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
   };
 
   onChange = e => {
@@ -32,7 +52,7 @@ class List extends Component {
       <div className="row justify-content-center">
         <div className="col-10">
           <div className="row justify-content-center">
-            <div className="col-8">
+            <div className="col-10">
               <input
                 type="text"
                 className="form-control"
@@ -53,17 +73,17 @@ class List extends Component {
             </div>
           </div>
 
-          {this.state.todos == 0 ? (
-            <div className="row justify-content-center">
-              <div className="col-10">
+          <div className="row justify-content-center list">
+            <div className="col-12">
+              {this.state.todos == 0 ? (
                 <p>No todos! Relax. :) </p>
-              </div>
+              ) : (
+                this.state.todos.map(todo => (
+                  <ListItem key={todo.id} todo={todo.name} />
+                ))
+              )}
             </div>
-          ) : (
-            this.state.todos.map(todo => (
-              <ListItem key={todo.id} todo={todo.name} />
-            ))
-          )}
+          </div>
 
           <hr />
 

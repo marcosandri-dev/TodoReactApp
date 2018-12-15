@@ -15,6 +15,7 @@ router.get("/:id", function(req, res) {
 });
 
 router.post("/", function(req, res) {
+  console.log(req.body);
   db.Todo.create(req.body)
     .then(function(todo) {
       res.send(todo);

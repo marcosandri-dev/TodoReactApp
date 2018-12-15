@@ -1,6 +1,10 @@
+require("dotenv").config();
 var express = require("express"),
   app = express(),
   port = process.env.PORT || 8000;
+
+var cors = require("cors");
+app.use(cors());
 
 var todoRoutes = require("./routes/todos");
 
