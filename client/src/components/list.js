@@ -13,6 +13,7 @@ class List extends Component {
     };
     this.addTodo = this.addTodo.bind(this);
     this.loadTodos = this.loadTodos.bind(this);
+    this.deleteTodo = this.deleteTodo.bind(this);
     this.loadTodos();
   }
 
@@ -36,7 +37,23 @@ class List extends Component {
     axios
       .get("http://localhost:8000/api/todos")
       .then(res => {
+        var oldTodos = this.state.todos;
+        oldTodos.push(res.data);
         this.setState({ todos: res.data });
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
+  };
+
+  deleteTodo = function(_id) {
+    axios
+      .delete("http://localhost:8000/api/todos/" + _id)
+      .then(res => {
+        /*var oldTodos = this.state.todos;
+        oldTodos.push(res.data);
+        this.setState({ todos: res.data });*/
+        this.loadTodos();
       })
       .catch(function(err) {
         console.log(err);
@@ -79,7 +96,12 @@ class List extends Component {
                 <p>No todos! Relax. :) </p>
               ) : (
                 this.state.todos.map(todo => (
-                  <ListItem key={todo.id} todo={todo.name} />
+                  <ListItem
+                    key={todo._id}
+                    todo={todo.name}
+                    id={todo._id}
+                    deleteTodo={this.deleteTodo}
+                  />
                 ))
               )}
             </div>

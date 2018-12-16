@@ -7,14 +7,7 @@ class ListItem extends Component {
     this.state = {
       todo: this.props.todo
     };
-    //this.deleteTodo = this.deleteTodo.bind(this);
   }
-
-  /*deleteTodo = function() {
-    axios.delete("http://localhost:8000/api/todos").then(res => {
-      this;
-    });
-  };*/
 
   render() {
     return (
@@ -24,8 +17,12 @@ class ListItem extends Component {
             <li> {this.state.todo}</li>
           </div>
           <div className="col-1 text-center">
-            <i class="far fa-edit" />
-            <i style={{ marginLeft: "10px" }} class="fas fa-times" />
+            <i className="far fa-edit" />
+            <i
+              style={{ marginLeft: "10px" }}
+              className="fas fa-times"
+              onClick={() => this.props.deleteTodo(this.props.id)}
+            />
           </div>
         </div>
       </div>
