@@ -22,7 +22,8 @@ class List extends Component {
     console.log(this.state.value);
     axios
       .post("http://localhost:8000/api/todos", {
-        name: this.state.value
+        name: this.state.value,
+        id_project: this.props.selectedProj
       })
       .then(res => {
         var oldTodos = this.state.todos;

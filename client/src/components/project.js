@@ -1,7 +1,21 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 class Project extends Component {
-  state = {};
+  constructor(props) {
+    super(props);
+    this.state = {
+      projects: [],
+      value: ""
+    };
+  }
+
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+    //this.props.changeProject(this.state.value);
+    console.log(this.state.value);
+  };
+
   render() {
     return (
       <div id="project-row" className="row">
@@ -9,10 +23,15 @@ class Project extends Component {
           <h2> NOME PROGETTO</h2>
         </div>
         <div className="col-3">
-          <select class="form-control">
-            <option selected>Progetto 1</option>
-            <option>Progetto 2</option>
-            <option>Progetto 3</option>
+          <select
+            className="form-control"
+            name="value"
+            value={this.state.value}
+            onChange={this.onChange}
+          >
+            {this.props.projects.map(project => (
+              <option key={project._id}>{project.name}</option>
+            ))}
           </select>
         </div>
       </div>
