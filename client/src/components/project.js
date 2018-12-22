@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 
 class Project extends Component {
   constructor(props) {
@@ -8,12 +7,18 @@ class Project extends Component {
       projects: [],
       value: ""
     };
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+    console.log(this.state);
   }
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
-    //this.props.changeProject(this.state.value);
-    console.log(this.state.value);
+    this.props.changeProject(this.state.value);
   };
 
   render() {
@@ -27,11 +32,14 @@ class Project extends Component {
             className="form-control"
             name="value"
             value={this.state.value}
-            onChange={this.onChange}
+            onChange={this.handleChange}
           >
             {this.props.projects.map(project => (
-              <option key={project._id}>{project.name}</option>
+              <option key={project._id} value={project._id}>
+                {project.name}
+              </option>
             ))}
+            <option>Nuovo Progetto</option>
           </select>
         </div>
       </div>

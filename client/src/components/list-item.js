@@ -29,7 +29,7 @@ class ListItem extends Component {
   render() {
     return (
       <div className="list-item">
-        {this.state.editToggle == true ? (
+        {this.state.editToggle === true ? (
           <div className="row">
             <div className="col-10">
               <input

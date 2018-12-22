@@ -36,8 +36,11 @@ class List extends Component {
   };
 
   loadTodos = function() {
+    console.log(this.props.selectedProj);
     axios
-      .get("http://localhost:8000/api/todos")
+      .get("http://localhost:8000/api/todos", {
+        id_project: this.props.selectedProj
+      })
       .then(res => {
         this.setState({ todos: res.data });
       })

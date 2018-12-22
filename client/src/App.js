@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import List from "./components/list";
 import Header from "./components/header";
@@ -16,6 +15,7 @@ class App extends Component {
     };
 
     this.loadProjects = this.loadProjects.bind(this);
+    this.changeProject = this.changeProject.bind(this);
     this.loadProjects();
   }
 
@@ -28,6 +28,7 @@ class App extends Component {
 
   changeProject = function(proj) {
     this.setState({ selectedProj: proj });
+    console.log(proj);
   };
 
   render() {
@@ -37,8 +38,9 @@ class App extends Component {
           <Header />
           <Project
             projects={this.state.projects}
-            loadProjects={this.state.loadProjects}
-            changeProject={this.state.changeProject}
+            loadProjects={this.loadProjects}
+            changeProject={this.changeProject}
+            selectedProj={this.state.selectedProj}
           />
           <hr />
           <List selectedProj={this.state.selectedProj} />

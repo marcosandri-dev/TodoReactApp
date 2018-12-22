@@ -3,7 +3,7 @@ var router = express.Router();
 var db = require("../models");
 
 router.get("/", function(req, res) {
-  db.Todo.find().then(function(todos) {
+  db.Todo.find({ id_project: req.body.id_project }).then(function(todos) {
     res.send(todos);
   });
 });
