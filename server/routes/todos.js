@@ -2,15 +2,16 @@ var express = require("express");
 var router = express.Router();
 var db = require("../models");
 
-router.get("/", function(req, res) {
+/*router.get("/", function(req, res) {
+  console.log(req.body);
   db.Todo.find({ id_project: req.body.id_project }).then(function(todos) {
     res.send(todos);
   });
-});
+});*/
 
 router.get("/:id", function(req, res) {
-  db.Todo.findById(req.params.id).then(function(todo) {
-    res.send(todo);
+  db.Todo.find({ id_project: req.params.id }).then(function(todos) {
+    res.send(todos);
   });
 });
 

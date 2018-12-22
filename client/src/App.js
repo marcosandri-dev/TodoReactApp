@@ -40,7 +40,6 @@ class App extends Component {
             projects={this.state.projects}
             loadProjects={this.loadProjects}
             changeProject={this.changeProject}
-            selectedProj={this.state.selectedProj}
           />
           <hr />
           <List selectedProj={this.state.selectedProj} />

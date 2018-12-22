@@ -4,7 +4,6 @@ class Project extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      projects: [],
       value: ""
     };
 
@@ -12,13 +11,13 @@ class Project extends Component {
   }
 
   handleChange(event) {
-    this.setState({ value: event.target.value });
-    console.log(this.state);
+    this.setState({ value: event.target.value }, () => {
+      this.props.changeProject(this.state.value);
+    });
   }
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
-    this.props.changeProject(this.state.value);
   };
 
   render() {

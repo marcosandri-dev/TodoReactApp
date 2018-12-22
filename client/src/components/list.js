@@ -8,14 +8,19 @@ class List extends Component {
 
     this.state = {
       todos: [],
-      value: "",
-      count: 3
+      value: ""
     };
     this.addTodo = this.addTodo.bind(this);
     this.loadTodos = this.loadTodos.bind(this);
     this.deleteTodo = this.deleteTodo.bind(this);
     this.editTodo = this.editTodo.bind(this);
     this.loadTodos();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.selectedProj !== prevProps.selectedProj) {
+      this.loadTodos();
+    }
   }
 
   addTodo = function() {
@@ -36,11 +41,9 @@ class List extends Component {
   };
 
   loadTodos = function() {
-    console.log(this.props.selectedProj);
+    console.log(this.props);
     axios
-      .get("http://localhost:8000/api/todos", {
-        id_project: this.props.selectedProj
-      })
+      .get("http://localhost:8000/api/todos/" + this.props.selectedProj)
       .then(res => {
         this.setState({ todos: res.data });
       })
