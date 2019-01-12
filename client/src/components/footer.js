@@ -1,16 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 
-class Footer extends Component {
-  state = {};
-  render() {
-    return (
-      <div>
-        <footer>
-          <p>Ciao</p>
-        </footer>
-      </div>
-    );
-  }
-}
+const Footer = () => {
+  return (
+    <footer className="bg-dark w-100 position-absolute" style={{ bottom: 0 }}>
+      <p className="p-3 text-light mb-0">Marco Sandri: </p>
+    </footer>
+  );
+};
 
 export default Footer;

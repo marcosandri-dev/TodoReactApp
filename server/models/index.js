@@ -17,4 +17,4 @@ mongoose
 mongoose.Promise = Promise;
 
 module.exports.Todo = require("./todo");
-module.exports.Project = require("./project");
+module.exports.User = require("./user");

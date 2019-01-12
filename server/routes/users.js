@@ -3,8 +3,8 @@ var router = express.Router();
 var db = require("../models");
 
 router.get("/", function(req, res) {
-  db.Project.find().then(function(projects) {
-    res.send(projects);
+  db.User.find().then(function(users) {
+    res.send(users);
   });
 });
 
@@ -17,9 +17,9 @@ router.get("/", function(req, res) {
 
 router.post("/", function(req, res) {
   console.log(req.body);
-  db.Project.create(req.body)
-    .then(function(project) {
-      res.send(project);
+  db.User.create(req.body)
+    .then(function(user) {
+      res.send(user);
     })
     .catch(function(error) {
       res.send(error);

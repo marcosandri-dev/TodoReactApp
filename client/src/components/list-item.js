@@ -6,24 +6,30 @@ class ListItem extends Component {
 
     this.state = {
       editToggle: false,
-      editTodo: this.props.todo
+      editTodo: this.props.todo,
+      textDeco: "none"
     };
-
-    this.toggleEdit = this.toggleEdit.bind(this);
-    this.editTodo = this.editTodo.bind(this);
   }
 
-  toggleEdit = function() {
+  toggleEdit = () => {
     this.setState({ editToggle: !this.state.editToggle });
   };
 
-  editTodo = function() {
+  toggleComplete = () => {};
+
+  editTodo = () => {
     this.props.editTodo(this.props.id, this.state.editTodo);
     this.toggleEdit();
   };
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
+  };
+
+  onKeyPress = e => {
+    if (e.key === "Enter") {
+      this.editTodo();
+    }
   };
 
   render() {
@@ -37,6 +43,7 @@ class ListItem extends Component {
                 className="form-control form-control-sm"
                 value={this.state.editTodo}
                 onChange={this.onChange}
+                onKeyPress={this.onKeyPress}
                 name="editTodo"
               />
             </div>
@@ -59,15 +66,27 @@ class ListItem extends Component {
             </div>
           </div>
         ) : (
-          <div className="row">
-            <div className="col-10">
-              <li> {this.props.todo}</li>
+          <div className="row justify-content-between p-1 border-rounded">
+            <div
+              className="col"
+              onClick={() =>
+                this.state.textDeco === "none"
+                  ? this.setState({ textDeco: "line-through" })
+                  : this.setState({ textDeco: "none" })
+              }
+            >
+              <span>- </span>
+              <span
+                className="todo-text"
+                style={{ textDecoration: this.state.textDeco }}
+              >
+                {this.props.todo}
+              </span>
             </div>
-            <div className="col-1 text-center">
+            <div className="col-auto">
               <i className="far fa-edit" onClick={this.toggleEdit} />
               <i
-                style={{ marginLeft: "10px" }}
-                className="fas fa-times"
+                className="fas fa-times ml-2"
                 onClick={() => this.props.deleteTodo(this.props.id)}
               />
             </div>

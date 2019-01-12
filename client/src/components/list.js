@@ -10,40 +10,29 @@ class List extends Component {
       todos: [],
       value: ""
     };
-    this.addTodo = this.addTodo.bind(this);
-    this.loadTodos = this.loadTodos.bind(this);
-    this.deleteTodo = this.deleteTodo.bind(this);
-    this.editTodo = this.editTodo.bind(this);
     this.loadTodos();
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.selectedProj !== prevProps.selectedProj) {
-      this.loadTodos();
-    }
-  }
-
-  addTodo = function() {
+  addTodo = () => {
     console.log(this.state.value);
     axios
       .post("http://localhost:8000/api/todos", {
         name: this.state.value,
-        id_project: this.props.selectedProj
+        user: "Marco"
       })
       .then(res => {
         var oldTodos = this.state.todos;
         oldTodos.push(res.data);
-        this.setState({ todos: oldTodos });
+        this.setState({ todos: oldTodos, value: "" });
       })
       .catch(function(err) {
         console.log(err);
       });
   };
 
-  loadTodos = function() {
-    console.log(this.props);
+  loadTodos = () => {
     axios
-      .get("http://localhost:8000/api/todos/" + this.props.selectedProj)
+      .get("http://localhost:8000/api/todos/Marco")
       .then(res => {
         this.setState({ todos: res.data });
       })
@@ -52,7 +41,7 @@ class List extends Component {
       });
   };
 
-  deleteTodo = function(_id) {
+  deleteTodo = _id => {
     axios
       .delete("http://localhost:8000/api/todos/" + _id)
       .then(res => {
@@ -63,7 +52,7 @@ class List extends Component {
       });
   };
 
-  editTodo = function(_id, editedTodo) {
+  editTodo = (_id, editedTodo) => {
     axios
       .put("http://localhost:8000/api/todos/" + _id, {
         name: editedTodo
@@ -80,12 +69,18 @@ class List extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  onKeyPress = e => {
+    if (e.key === "Enter") {
+      this.addTodo();
+    }
+  };
+
   render() {
     return (
       <div className="row justify-content-center">
         <div className="col-10">
-          <div className="row justify-content-center">
-            <div className="col-10">
+          <div className="row justify-content-between">
+            <div className="col">
               <input
                 type="text"
                 className="form-control"
@@ -93,9 +88,10 @@ class List extends Component {
                 name="value"
                 value={this.state.value}
                 onChange={this.onChange}
+                onKeyPress={this.onKeyPress}
               />
             </div>
-            <div className="col-2">
+            <div className="col-auto">
               <button
                 type="button"
                 className="btn btn-primary"
@@ -108,7 +104,7 @@ class List extends Component {
 
           <div className="row justify-content-center list">
             <div className="col-12">
-              {this.state.todos == 0 ? (
+              {!this.state.todos ? (
                 <p>No todos! Relax. :) </p>
               ) : (
                 this.state.todos.map(todo => (
@@ -126,20 +122,13 @@ class List extends Component {
 
           <hr />
 
-          <div
-            style={{ marginBottom: "30px", marginTop: "30px" }}
-            className="row justify-content-around"
-          >
-            <div className="col-5 col-md-3">
-              <a href="#" className="btn btn-info btn-block">
-                Archive
-              </a>
-            </div>
-            <div className="col-5 col-md-3">
-              <button type="button" className="btn btn-success btn-block">
-                Completa Todos
-              </button>
-            </div>
+          <div className="mb-4 mt-4 row justify-content-around">
+            <button
+              type="button"
+              className="btn btn-lg btn-success pl-5 pr-5 pt-2 pb-2"
+            >
+              Complete!
+            </button>
           </div>
         </div>
       </div>

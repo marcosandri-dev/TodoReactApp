@@ -10,9 +10,13 @@ var db = require("../models");
 });*/
 
 router.get("/:id", function(req, res) {
-  db.Todo.find({ id_project: req.params.id }).then(function(todos) {
-    res.send(todos);
-  });
+  db.Todo.find({ user: req.params.id })
+    .then(todos => {
+      res.send(todos);
+    })
+    .catch(error => {
+      res.send(error);
+    });
 });
 
 router.post("/", function(req, res) {

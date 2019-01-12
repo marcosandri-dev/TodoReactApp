@@ -1,5 +1,4 @@
 var mongoose = require("mongoose");
-var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var todoSchema = new mongoose.Schema({
   name: {
@@ -14,8 +13,8 @@ var todoSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  id_project: {
-    type: ObjectId,
+  user: {
+    type: String,
     required: true
   }
 });
