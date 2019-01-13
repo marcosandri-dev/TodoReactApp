@@ -32,6 +32,17 @@ body::after {
 header {
   font-family: "Happy";
 }
+
+.logo {
+  color: #111;
+  text-decoration: none !important;
+}
+
+.logo :hover {
+  text-decoration: none !important;
+  color: #222;
+}
+
 /* LIST */
 .list {
   margin-top: 20px;
@@ -49,4 +60,11 @@ header {
 
 .todo-text {
   cursor: pointer;
+}
+
+/* LOGIN */
+
+.login-form {
+  background-color: rgb(190, 218, 226);
+  border: 1px solid darkgray;
 }

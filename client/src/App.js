@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import { Route } from "react-router-dom";
 import "./App.css";
 import List from "./components/list";
 import Header from "./components/header";
 import Footer from "./components/footer";
-import axios from "axios";
+import Login from "./components/login";
 
 class App extends Component {
   constructor(props) {
@@ -17,7 +18,8 @@ class App extends Component {
         <div className="container">
           <Header />
           <hr />
-          <List selectedProj={this.state.selectedProj} />
+          <Route exact path="/" component={Login} />
+          <Route path="/list" component={List} />
         </div>
         <Footer />
       </div>

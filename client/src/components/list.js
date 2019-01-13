@@ -8,15 +8,19 @@ class List extends Component {
 
     this.state = {
       todos: [],
-      value: ""
+      value: "",
+      apiURL: "http://localhost:8000"
     };
     this.loadTodos();
   }
 
+  //apiURL: "https://hidden-island-12178.herokuapp.com"
+  //apiURL: "http://localhost:8000"
+
   addTodo = () => {
     console.log(this.state.value);
     axios
-      .post("http://localhost:8000/api/todos", {
+      .post(`${this.state.apiURL}/api/todos`, {
         name: this.state.value,
         user: "Marco"
       })
@@ -32,7 +36,7 @@ class List extends Component {
 
   loadTodos = () => {
     axios
-      .get("http://localhost:8000/api/todos/Marco")
+      .get(`${this.state.apiURL}/api/todos/Marco`)
       .then(res => {
         this.setState({ todos: res.data });
       })
@@ -43,7 +47,7 @@ class List extends Component {
 
   deleteTodo = _id => {
     axios
-      .delete("http://localhost:8000/api/todos/" + _id)
+      .delete(`${this.state.apiURL}/api/todos` + _id)
       .then(res => {
         this.loadTodos();
       })
@@ -54,7 +58,7 @@ class List extends Component {
 
   editTodo = (_id, editedTodo) => {
     axios
-      .put("http://localhost:8000/api/todos/" + _id, {
+      .put(`${this.state.apiURL}/api/todos` + _id, {
         name: editedTodo
       })
       .then(res => {
