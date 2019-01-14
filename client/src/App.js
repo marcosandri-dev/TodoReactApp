@@ -19,7 +19,7 @@ class App extends Component {
           <Header />
           <hr />
           <Route exact path="/" component={Login} />
-          <Route path="/list" component={List} />
+          <Route path="/list/:listname" component={List} />
         </div>
         <Footer />
       </div>

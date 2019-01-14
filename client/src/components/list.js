@@ -9,7 +9,8 @@ class List extends Component {
     this.state = {
       todos: [],
       value: "",
-      apiURL: "http://localhost:8000"
+      apiURL: "http://localhost:8000",
+      listname: this.props.match.params.listname
     };
     this.loadTodos();
   }
@@ -18,14 +19,14 @@ class List extends Component {
   //apiURL: "http://localhost:8000"
 
   addTodo = () => {
-    console.log(this.state.value);
+    const { value, todos, apiURL, listname } = this.state;
     axios
-      .post(`${this.state.apiURL}/api/todos`, {
-        name: this.state.value,
-        user: "Marco"
+      .post(`${apiURL}/api/todos`, {
+        name: value,
+        user: listname
       })
       .then(res => {
-        var oldTodos = this.state.todos;
+        var oldTodos = todos;
         oldTodos.push(res.data);
         this.setState({ todos: oldTodos, value: "" });
       })
@@ -35,8 +36,9 @@ class List extends Component {
   };
 
   loadTodos = () => {
+    const { apiURL, listname } = this.state;
     axios
-      .get(`${this.state.apiURL}/api/todos/Marco`)
+      .get(`${apiURL}/api/todos/${listname}`)
       .then(res => {
         this.setState({ todos: res.data });
       })
@@ -47,7 +49,7 @@ class List extends Component {
 
   deleteTodo = _id => {
     axios
-      .delete(`${this.state.apiURL}/api/todos` + _id)
+      .delete(`${this.state.apiURL}/api/todos/${_id}`)
       .then(res => {
         this.loadTodos();
       })
@@ -58,7 +60,7 @@ class List extends Component {
 
   editTodo = (_id, editedTodo) => {
     axios
-      .put(`${this.state.apiURL}/api/todos` + _id, {
+      .put(`${this.state.apiURL}/api/todos/${_id}`, {
         name: editedTodo
       })
       .then(res => {
@@ -70,7 +72,9 @@ class List extends Component {
   };
 
   onChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+    let upper =
+      e.target.value.charAt(0).toUpperCase() + e.target.value.substr(1);
+    this.setState({ [e.target.name]: upper });
   };
 
   onKeyPress = e => {
@@ -90,6 +94,7 @@ class List extends Component {
                 className="form-control"
                 placeholder="Insert a ToDo!"
                 name="value"
+                id="todo-input"
                 value={this.state.value}
                 onChange={this.onChange}
                 onKeyPress={this.onKeyPress}

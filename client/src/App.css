@@ -62,6 +62,10 @@ header {
   cursor: pointer;
 }
 
+#todo-input::first-letter {
+  text-transform: uppercase;
+}
+
 /* LOGIN */
 
 .login-form {
