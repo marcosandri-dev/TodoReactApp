@@ -6,7 +6,7 @@ class ListItem extends Component {
 
     this.state = {
       editToggle: false,
-      editTodo: this.props.todo,
+      editTodo: this.props.todo.name,
       textDeco: "none"
     };
   }
@@ -18,7 +18,7 @@ class ListItem extends Component {
   toggleComplete = () => {};
 
   editTodo = () => {
-    this.props.editTodo(this.props.id, this.state.editTodo);
+    this.props.editTodo(this.props.todo._id, { name: this.state.editTodo });
     this.toggleEdit();
   };
 
@@ -70,24 +70,28 @@ class ListItem extends Component {
             <div
               className="col"
               onClick={() =>
-                this.state.textDeco === "none"
-                  ? this.setState({ textDeco: "line-through" })
-                  : this.setState({ textDeco: "none" })
+                this.props.editTodo(this.props.todo._id, {
+                  completed: !this.props.todo.completed
+                })
               }
             >
               <span>- </span>
               <span
                 className="todo-text"
-                style={{ textDecoration: this.state.textDeco }}
+                style={
+                  this.props.todo.completed
+                    ? { textDecoration: "line-through" }
+                    : { textDecoration: "none" }
+                }
               >
-                {this.props.todo}
+                {this.props.todo.name}
               </span>
             </div>
             <div className="col-auto">
               <i className="far fa-edit" onClick={this.toggleEdit} />
               <i
                 className="fas fa-times ml-2"
-                onClick={() => this.props.deleteTodo(this.props.id)}
+                onClick={() => this.props.deleteTodo(this.props.todo._id)}
               />
             </div>
           </div>

@@ -58,17 +58,25 @@ class List extends Component {
       });
   };
 
-  editTodo = (_id, editedTodo) => {
+  editTodo = (_id, params) => {
+    //Nice solution! Reusing the same function to edit 2 different params
+    console.log(params);
     axios
-      .put(`${this.state.apiURL}/api/todos/${_id}`, {
-        name: editedTodo
-      })
+      .put(`${this.state.apiURL}/api/todos/${_id}`, params)
       .then(res => {
         this.loadTodos();
       })
       .catch(function(err) {
         console.log(err);
       });
+  };
+
+  completeTodos = () => {
+    this.state.todos.forEach(todo => {
+      if (todo.completed) {
+        this.deleteTodo(todo._id);
+      }
+    });
   };
 
   onChange = e => {
@@ -113,14 +121,13 @@ class List extends Component {
 
           <div className="row justify-content-center list">
             <div className="col-12">
-              {!this.state.todos ? (
-                <p>No todos! Relax. :) </p>
+              {this.state.todos.length === 0 ? (
+                <p>No todos. Relax! :) </p>
               ) : (
                 this.state.todos.map(todo => (
                   <ListItem
                     key={todo._id}
-                    todo={todo.name}
-                    id={todo._id}
+                    todo={todo}
                     deleteTodo={this.deleteTodo}
                     editTodo={this.editTodo}
                   />
@@ -135,6 +142,7 @@ class List extends Component {
             <button
               type="button"
               className="btn btn-lg btn-success pl-5 pr-5 pt-2 pb-2"
+              onClick={this.completeTodos}
             >
               Complete!
             </button>
