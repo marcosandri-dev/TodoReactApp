@@ -34,7 +34,7 @@ class ListItem extends Component {
 
   render() {
     return (
-      <div className="list-item">
+      <div className="list-item pt-1">
         {this.state.editToggle === true ? (
           <div className="row">
             <div className="col-10">
@@ -75,7 +75,11 @@ class ListItem extends Component {
                 })
               }
             >
-              <span>- </span>
+              <input
+                type="checkbox"
+                className="mr-2"
+                checked={this.props.todo.completed}
+              />
               <span
                 className="todo-text"
                 style={
@@ -88,11 +92,9 @@ class ListItem extends Component {
               </span>
             </div>
             <div className="col-auto">
-              <i className="far fa-edit" onClick={this.toggleEdit} />
-              <i
-                className="fas fa-times ml-2"
-                onClick={() => this.props.deleteTodo(this.props.todo._id)}
-              />
+              <i className="far fa-edit mr-2" onClick={this.toggleEdit} />
+              {/* <i className="fas fa-times ml-2"
+                onClick={() => this.props.deleteTodo(this.props.todo._id)}/> */}
             </div>
           </div>
         )}

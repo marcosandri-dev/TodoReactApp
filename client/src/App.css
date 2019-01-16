@@ -7,11 +7,7 @@ body {
   padding: 0;
   margin: 0;
   position: relative;
-  background: linear-gradient(
-    to bottom,
-    rgba(32, 124, 229, 0.8) 0%,
-    rgba(73, 155, 234, 0.4) 100%
-  );
+  background-color: rgba(32, 124, 229, 0.8);
   color: #111;
 }
 
@@ -45,21 +41,19 @@ header {
 
 /* LIST */
 .list {
-  margin-top: 20px;
   color: black;
+  background-color: rgb(247, 247, 233);
+  border-radius: 15px;
 }
 
 .list-item {
-  margin-top: 5px;
   font-size: 20px;
+  border-bottom: 1px solid darkgray;
+  cursor: pointer;
 }
 
 .list-item:hover {
-  background-color: rgba(255, 255, 255, 20%);
-}
-
-.todo-text {
-  cursor: pointer;
+  background-color: rgba(192, 192, 192, 0.438);
 }
 
 #todo-input::first-letter {
@@ -69,6 +63,14 @@ header {
 /* LOGIN */
 
 .login-form {
-  background-color: rgb(190, 218, 226);
-  border: 1px solid darkgray;
+  background-color: rgb(247, 247, 233);
+  border: 1px solid black;
+}
+
+/* FOOTER */
+
+footer {
+  background-color: #222;
+  bottom: 0 !important;
+  color: white;
 }

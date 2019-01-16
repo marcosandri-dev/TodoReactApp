@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ListItem from "./list-item";
 import axios from "axios";
+import moment from "moment";
 
 class List extends Component {
   constructor(props) {
@@ -15,24 +16,26 @@ class List extends Component {
     this.loadTodos();
   }
 
-  //apiURL: "https://hidden-island-12178.herokuapp.com"
+  //apiURL: "https://marcosandritodoapp.herokuapp.com"
   //apiURL: "http://localhost:8000"
 
   addTodo = () => {
     const { value, todos, apiURL, listname } = this.state;
-    axios
-      .post(`${apiURL}/api/todos`, {
-        name: value,
-        user: listname
-      })
-      .then(res => {
-        var oldTodos = todos;
-        oldTodos.push(res.data);
-        this.setState({ todos: oldTodos, value: "" });
-      })
-      .catch(function(err) {
-        console.log(err);
-      });
+    if (value) {
+      axios
+        .post(`${apiURL}/api/todos`, {
+          name: value,
+          user: listname
+        })
+        .then(res => {
+          var oldTodos = todos;
+          oldTodos.push(res.data);
+          this.setState({ todos: oldTodos, value: "" });
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    }
   };
 
   loadTodos = () => {
@@ -119,8 +122,10 @@ class List extends Component {
             </div>
           </div>
 
-          <div className="row justify-content-center list">
+          <div className="row justify-content-center list pb-3 pt-3 mt-3">
             <div className="col-12">
+              <h2>{moment().format("DD/MM/YYYY")}</h2>
+              <hr />
               {this.state.todos.length === 0 ? (
                 <p>No todos. Relax! :) </p>
               ) : (
