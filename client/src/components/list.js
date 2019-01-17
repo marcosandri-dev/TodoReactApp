@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ListItem from "./list-item";
 import axios from "axios";
 import moment from "moment";
+import http from "../services/http-service";
 
 class List extends Component {
   constructor(props) {
@@ -19,67 +20,37 @@ class List extends Component {
   //apiURL: "https://marcosandritodoapp.herokuapp.com"
   //apiURL: "http://localhost:8000"
 
+  loadTodos = () => {
+    http
+      .getTodos(this.state.listname)
+      .then(res => this.setState({ todos: res }));
+  };
+
   addTodo = () => {
-    const { value, todos, apiURL, listname } = this.state;
+    const { value, todos, listname } = this.state;
     if (value) {
-      axios
-        .post(`${apiURL}/api/todos`, {
-          name: value,
-          user: listname
-        })
-        .then(res => {
-          var oldTodos = todos;
-          oldTodos.push(res.data);
-          this.setState({ todos: oldTodos, value: "" });
-        })
-        .catch(function(err) {
-          console.log(err);
-        });
+      http.addTodo(value, listname).then(res => {
+        this.setState({ todos: todos.concat(res) });
+      });
     }
   };
 
-  loadTodos = () => {
-    const { apiURL, listname } = this.state;
-    axios
-      .get(`${apiURL}/api/todos/${listname}`)
-      .then(res => {
-        this.setState({ todos: res.data });
-      })
-      .catch(function(err) {
-        console.log(err);
-      });
-  };
-
-  deleteTodo = _id => {
-    axios
-      .delete(`${this.state.apiURL}/api/todos/${_id}`)
-      .then(res => {
-        this.loadTodos();
-      })
-      .catch(function(err) {
-        console.log(err);
-      });
-  };
-
   editTodo = (_id, params) => {
-    //Nice solution! Reusing the same function to edit 2 different params
-    console.log(params);
-    axios
-      .put(`${this.state.apiURL}/api/todos/${_id}`, params)
-      .then(res => {
-        this.loadTodos();
-      })
-      .catch(function(err) {
-        console.log(err);
-      });
+    http.editTodo(_id, params).then(() => {
+      this.loadTodos();
+    });
   };
 
   completeTodos = () => {
-    this.state.todos.forEach(todo => {
-      if (todo.completed) {
-        this.deleteTodo(todo._id);
-      }
-    });
+    http
+      .deleteTodo(
+        this.state.todos
+          .filter(todo => {
+            return todo.completed;
+          })
+          .map(todo => todo._id)
+      )
+      .then(this.loadTodos);
   };
 
   onChange = e => {

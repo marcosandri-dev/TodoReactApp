@@ -30,20 +30,21 @@ router.post("/", function(req, res) {
     });
 });
 
-router.put("/:id", function(req, res) {
-  db.Todo.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+router.delete("/", function(req, res) {
+  //console.log(req.body);
+  db.Todo.remove({ _id: { $in: req.body.ids } })
     .then(function(todo) {
-      res.send(todo);
+      res.send("Deleted");
     })
     .catch(function(error) {
       res.send(error);
     });
 });
 
-router.delete("/:id", function(req, res) {
-  db.Todo.remove({ _id: req.params.id })
+router.put("/:id", function(req, res) {
+  db.Todo.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
     .then(function(todo) {
-      res.send("Deleted");
+      res.send(todo);
     })
     .catch(function(error) {
       res.send(error);

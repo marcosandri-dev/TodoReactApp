@@ -65,6 +65,7 @@ header {
 .login-form {
   background-color: rgb(247, 247, 233);
   border: 1px solid black;
+  border-radius: 5px;
 }
 
 /* FOOTER */
