@@ -75,3 +75,9 @@ footer {
   bottom: 0 !important;
   color: white;
 }
+
+@media (max-width: 576px) {
+  .footer-rows {
+    text-align: center !important;
+  }
+}

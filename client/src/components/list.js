@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import ListItem from "./list-item";
-import axios from "axios";
 import moment from "moment";
 import http from "../services/http-service";
 
@@ -42,15 +41,10 @@ class List extends Component {
   };
 
   completeTodos = () => {
-    http
-      .deleteTodo(
-        this.state.todos
-          .filter(todo => {
-            return todo.completed;
-          })
-          .map(todo => todo._id)
-      )
-      .then(this.loadTodos);
+    const completedTodos = this.state.todos
+      .filter(todo => todo.completed)
+      .map(todo => todo._id);
+    http.deleteTodo(completedTodos).then(this.loadTodos);
   };
 
   onChange = e => {
@@ -60,9 +54,7 @@ class List extends Component {
   };
 
   onKeyPress = e => {
-    if (e.key === "Enter") {
-      this.addTodo();
-    }
+    if (e.key === "Enter") this.addTodo();
   };
 
   render() {
