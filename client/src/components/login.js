@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 
 class Login extends Component {
   constructor(props) {
@@ -17,8 +16,7 @@ class Login extends Component {
   };
 
   onKeyPress = e => {
-    //if (e.key === "Enter") this.clickDiv.current.click();
-    console.log("Entered Login");
+    if (e.key === "Enter") this.props.changeRoute("List", this.state.value);
   };
 
   render() {
@@ -43,14 +41,13 @@ class Login extends Component {
         <hr />
         <div className="row justify-content-center">
           <div className="col-12">
-            <Link to={`/list/${this.state.value}`} ref={this.clickDiv}>
-              <button
-                type="button"
-                className="btn btn-lg btn-primary w-100 pt-2 pb-2 mb-3"
-              >
-                Login...
-              </button>
-            </Link>
+            <button
+              type="submit"
+              className="btn btn-lg btn-primary w-100 pt-2 pb-2 mb-3"
+              onClick={() => this.props.changeRoute("list", this.state.value)}
+            >
+              Login...
+            </button>
           </div>
         </div>
       </div>

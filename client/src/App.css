@@ -31,11 +31,10 @@ header {
 
 .logo {
   color: #111;
-  text-decoration: none !important;
+  cursor: pointer;
 }
 
 .logo :hover {
-  text-decoration: none !important;
   color: #222;
 }
 

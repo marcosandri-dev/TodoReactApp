@@ -10,8 +10,7 @@ class List extends Component {
     this.state = {
       todos: [],
       value: "",
-      apiURL: "http://localhost:8000",
-      listname: this.props.match.params.listname
+      apiURL: "http://localhost:8000"
     };
     this.loadTodos();
   }
@@ -21,14 +20,14 @@ class List extends Component {
 
   loadTodos = () => {
     http
-      .getTodos(this.state.listname)
+      .getTodos(this.props.listName)
       .then(res => this.setState({ todos: res }));
   };
 
   addTodo = () => {
-    const { value, todos, listname } = this.state;
+    const { value, todos } = this.state;
     if (value) {
-      http.addTodo(value, listname).then(res => {
+      http.addTodo(value, this.props.listName).then(res => {
         this.setState({ todos: todos.concat(res) });
       });
     }

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import Particles from "react-particles-js";
 import "./App.css";
 import List from "./components/list";
 import Header from "./components/header";
@@ -9,17 +9,32 @@ import Login from "./components/login";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      route: "Login",
+      listName: ""
+    };
   }
 
+  changeRoute = (route, listName) => {
+    this.setState({ route: route, listName: listName });
+  };
+
   render() {
+    const { route } = this.state;
     return (
       <div className="App">
+        <Particles style={{ position: "fixed", zIndex: -1 }} />
         <div className="container">
-          <Header />
+          <Header changeRoute={this.changeRoute} />
           <hr />
-          <Route exact path="/" component={Login} />
-          <Route path="/list/:listname" component={List} />
+          {route === "Login" ? (
+            <Login changeRoute={this.changeRoute} />
+          ) : (
+            <List
+              changeRoute={this.changeRoute}
+              listName={this.state.listName}
+            />
+          )}
         </div>
         <Footer />
       </div>
