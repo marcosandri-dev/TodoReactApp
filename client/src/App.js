@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Particles from "react-particles-js";
+import ParticlesConfig from "./config/particle-config.json";
 import "./App.css";
 import List from "./components/list";
 import Header from "./components/header";
@@ -23,7 +24,10 @@ class App extends Component {
     const { route } = this.state;
     return (
       <div className="App">
-        <Particles style={{ position: "fixed", zIndex: -1 }} />
+        <Particles
+          style={{ position: "fixed", zIndex: -1 }}
+          params={ParticlesConfig}
+        />
         <div className="container">
           <Header changeRoute={this.changeRoute} />
           <hr />

@@ -23,13 +23,12 @@ class Login extends Component {
     return (
       <div
         style={{ width: "80vw", maxWidth: "400px" }}
-        className="login-form pl-4 pr-4 mx-auto"
+        className="login-form pl-4 pr-4 mx-auto mb-5"
       >
-        <h1 className="text-center p-3">"Login..."</h1>
+        <h3 className="text-center pt-3">Insert a list name!</h3>
         <hr />
-        <label htmlFor="login-input">Insert a list name:</label>
         <input
-          placeholder="ex. 'My shopping List'"
+          placeholder="ex. 'My shopping Cart'"
           id="login-input"
           type="text"
           className="form-control"
@@ -46,7 +45,7 @@ class Login extends Component {
               className="btn btn-lg btn-primary w-100 pt-2 pb-2 mb-3"
               onClick={() => this.props.changeRoute("list", this.state.value)}
             >
-              Login...
+              Create List
             </button>
           </div>
         </div>

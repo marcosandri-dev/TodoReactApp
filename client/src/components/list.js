@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import ListItem from "./list-item";
-import moment from "moment";
 import http from "../services/http-service";
 
 class List extends Component {
@@ -28,7 +27,7 @@ class List extends Component {
     const { value, todos } = this.state;
     if (value) {
       http.addTodo(value, this.props.listName).then(res => {
-        this.setState({ todos: todos.concat(res) });
+        this.setState({ todos: todos.concat(res), value: "" });
       });
     }
   };
@@ -86,7 +85,7 @@ class List extends Component {
 
           <div className="row justify-content-center list pb-3 pt-3 mt-3">
             <div className="col-12">
-              <h2>{moment().format("DD/MM/YYYY")}</h2>
+              <h2> {this.props.listName}</h2>
               <hr />
               {this.state.todos.length === 0 ? (
                 <p>No todos. Relax! :) </p>

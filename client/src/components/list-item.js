@@ -47,6 +47,7 @@ class ListItem extends Component {
                 name="editTodo"
               />
             </div>
+            {this.props.todo}
             <div className="col">
               <button
                 onClick={this.editTodo}

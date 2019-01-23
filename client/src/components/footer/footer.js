@@ -17,8 +17,13 @@ const Footer = () => {
         </div>
         <div className="col-12 col-sm-5 text-right footer-rows">
           {links.map(link => (
-            <a href={link.link} target="_blank">
-              <img className="mr-4" src={link.icon} style={{ width: "40px" }} />
+            <a href={link.link} rel="noopener noreferrer" target="_blank">
+              <img
+                className="mr-4"
+                alt="More on Marco Sandri Icon"
+                src={link.icon}
+                style={{ width: "40px" }}
+              />
             </a>
           ))}
         </div>
