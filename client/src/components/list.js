@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ListItem from "./list-item";
 import http from "../services/http-service";
+import moment from "moment";
 
 class List extends Component {
   constructor(props) {
@@ -8,6 +9,7 @@ class List extends Component {
 
     this.state = {
       todos: [],
+      dates: [],
       value: "",
       apiURL: "http://localhost:8000"
     };
@@ -20,7 +22,7 @@ class List extends Component {
   loadTodos = () => {
     http
       .getTodos(this.props.listName)
-      .then(res => this.setState({ todos: res }));
+      .then(res => this.setState({ todos: res.todos, dates: res.dates }));
   };
 
   addTodo = () => {
@@ -85,18 +87,28 @@ class List extends Component {
 
           <div className="row justify-content-center list pb-3 pt-3 mt-3">
             <div className="col-12">
-              <h2> {this.props.listName}</h2>
+              <h2>List: {this.props.listName}</h2>
               <hr />
               {this.state.todos.length === 0 ? (
                 <p>No todos. Relax! :) </p>
               ) : (
-                this.state.todos.map(todo => (
-                  <ListItem
-                    key={todo._id}
-                    todo={todo}
-                    deleteTodo={this.deleteTodo}
-                    editTodo={this.editTodo}
-                  />
+                this.state.dates.map(date => (
+                  <div className="mt-3">
+                    <h4>{date}</h4>
+                    {this.state.todos.map(todo =>
+                      date ===
+                      moment(todo.created_date).format("DD/MM/YYYY") ? (
+                        <ListItem
+                          key={todo._id}
+                          todo={todo}
+                          deleteTodo={this.deleteTodo}
+                          editTodo={this.editTodo}
+                        />
+                      ) : (
+                        ""
+                      )
+                    )}
+                  </div>
                 ))
               )}
             </div>

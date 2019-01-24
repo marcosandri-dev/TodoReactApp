@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var db = require("../models");
+var moment = require("moment");
 
 /*router.get("/", function(req, res) {
   console.log(req.body);
@@ -9,10 +10,18 @@ var db = require("../models");
   });
 });*/
 
+//This routing is a bit odd.
 router.get("/:id", function(req, res) {
   db.Todo.find({ user: req.params.id })
     .then(todos => {
-      res.send(todos);
+      //Getting the distinct array of formatted dates
+      let dates = todos.map(todo =>
+        moment(todo.created_date).format("DD/MM/YYYY")
+      );
+      dates = [...new Set(dates)];
+      //Sending all the data back
+      const data = { todos, dates };
+      res.send(data);
     })
     .catch(error => {
       res.send(error);
