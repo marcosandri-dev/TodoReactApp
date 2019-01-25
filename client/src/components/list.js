@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import ListItem from "./list-item";
 import http from "../services/http-service";
-import moment from "moment";
+import ListDate from "./list-date";
 
 class List extends Component {
   constructor(props) {
@@ -93,22 +92,11 @@ class List extends Component {
                 <p>No todos. Relax! :) </p>
               ) : (
                 this.state.dates.map(date => (
-                  <div className="mt-3">
-                    <h4>{date}</h4>
-                    {this.state.todos.map(todo =>
-                      date ===
-                      moment(todo.created_date).format("DD/MM/YYYY") ? (
-                        <ListItem
-                          key={todo._id}
-                          todo={todo}
-                          deleteTodo={this.deleteTodo}
-                          editTodo={this.editTodo}
-                        />
-                      ) : (
-                        ""
-                      )
-                    )}
-                  </div>
+                  <ListDate
+                    editTodo={this.editTodo}
+                    todos={this.state.todos}
+                    date={date}
+                  />
                 ))
               )}
             </div>
