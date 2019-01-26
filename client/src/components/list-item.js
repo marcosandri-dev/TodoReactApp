@@ -1,24 +1,25 @@
 import React, { Component } from "react";
+import EditTodoInput from "./edit-todo-input";
 
 class ListItem extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      editToggle: false,
-      editTodo: this.props.todo.name,
+      editTodoInputValue: this.props.todo.name,
+      editInputToggle: false,
       textDeco: "none"
     };
   }
 
   toggleEdit = () => {
-    this.setState({ editToggle: !this.state.editToggle });
+    this.setState({ editInputToggle: !this.state.editInputToggle });
   };
 
-  toggleComplete = () => {};
-
   editTodo = () => {
-    this.props.editTodo(this.props.todo._id, { name: this.state.editTodo });
+    this.props.editTodo(this.props.todo._id, {
+      name: this.state.editTodoInputValue
+    });
     this.toggleEdit();
   };
 
@@ -33,69 +34,46 @@ class ListItem extends Component {
   };
 
   render() {
+    const { completed, name, _id } = this.props.todo;
     return (
-      <div className="list-item pt-1">
-        {this.state.editToggle === true ? (
-          <div className="row">
-            <div className="col-10">
-              <input
-                type="text"
-                className="form-control form-control-sm"
-                value={this.state.editTodo}
-                onChange={this.onChange}
-                onKeyPress={this.onKeyPress}
-                name="editTodo"
-              />
-            </div>
-            {this.props.todo}
-            <div className="col">
-              <button
-                onClick={this.editTodo}
-                type="button"
-                className="btn btn-sm btn-primary"
-                style={{ marginRight: "5px" }}
-              >
-                Edit
-              </button>
-              <button
-                onClick={this.toggleEdit}
-                type="button"
-                className="btn btn-sm btn-secondary"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
+      <div>
+        {this.state.editInputToggle === true ? (
+          <EditTodoInput
+            editTodo={this.editTodo}
+            onChange={this.onChange}
+            onKeyPress={this.onKeyPress}
+            toggleEdit={this.toggleEdit}
+            editTodoInputValue={this.state.editTodoInputValue}
+          />
         ) : (
-          <div className="row justify-content-between p-1 border-rounded">
+          <div className=" list-item row justify-content-between p-1 border-rounded">
             <div
               className="col"
               onClick={() =>
-                this.props.editTodo(this.props.todo._id, {
-                  completed: !this.props.todo.completed
+                this.props.editTodo(_id, {
+                  completed: !completed
                 })
               }
             >
               <input
                 type="checkbox"
                 className="mr-2"
-                checked={this.props.todo.completed}
+                readOnly
+                checked={completed}
               />
               <span
                 className="todo-text"
                 style={
-                  this.props.todo.completed
+                  completed === true
                     ? { textDecoration: "line-through" }
                     : { textDecoration: "none" }
                 }
               >
-                {this.props.todo.name}
+                {name}
               </span>
             </div>
             <div className="col-auto">
               <i className="far fa-edit mr-2" onClick={this.toggleEdit} />
-              {/* <i className="fas fa-times ml-2"
-                onClick={() => this.props.deleteTodo(this.props.todo._id)}/> */}
             </div>
           </div>
         )}

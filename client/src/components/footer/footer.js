@@ -16,8 +16,13 @@ const Footer = () => {
           <h5>Marco Sandri - Full Stack Developer </h5>
         </div>
         <div className="col-12 col-sm-5 text-right footer-rows">
-          {links.map(link => (
-            <a href={link.link} rel="noopener noreferrer" target="_blank">
+          {links.map((link, index) => (
+            <a
+              href={link.link}
+              rel="noopener noreferrer"
+              target="_blank"
+              key={index}
+            >
               <img
                 className="mr-4"
                 alt="More on Marco Sandri Icon"

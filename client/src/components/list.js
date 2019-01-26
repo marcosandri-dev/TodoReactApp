@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import http from "../services/http-service";
 import ListDate from "./list-date";
+import moment from "moment";
 
 class List extends Component {
   constructor(props) {
@@ -15,13 +16,23 @@ class List extends Component {
     this.loadTodos();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.todos.length !== prevState.todos.length) {
+      let dates = this.state.todos.map(todo =>
+        moment(todo.created_date).format("DD/MM/YYYY")
+      );
+      dates = [...new Set(dates)];
+      this.setState({ dates: dates });
+    }
+  }
+
   //apiURL: "https://marcosandritodoapp.herokuapp.com"
   //apiURL: "http://localhost:8000"
 
   loadTodos = () => {
-    http
-      .getTodos(this.props.listName)
-      .then(res => this.setState({ todos: res.todos, dates: res.dates }));
+    http.getTodos(this.props.listName).then(res => {
+      this.setState({ todos: res });
+    });
   };
 
   addTodo = () => {
@@ -91,8 +102,9 @@ class List extends Component {
               {this.state.todos.length === 0 ? (
                 <p>No todos. Relax! :) </p>
               ) : (
-                this.state.dates.map(date => (
+                this.state.dates.map((date, index) => (
                   <ListDate
+                    key={index}
                     editTodo={this.editTodo}
                     todos={this.state.todos}
                     date={date}

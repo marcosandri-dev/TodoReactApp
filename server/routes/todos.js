@@ -14,14 +14,7 @@ var moment = require("moment");
 router.get("/:id", function(req, res) {
   db.Todo.find({ user: req.params.id })
     .then(todos => {
-      //Getting the distinct array of formatted dates
-      let dates = todos.map(todo =>
-        moment(todo.created_date).format("DD/MM/YYYY")
-      );
-      dates = [...new Set(dates)];
-      //Sending all the data back
-      const data = { todos, dates };
-      res.send(data);
+      res.send(todos);
     })
     .catch(error => {
       res.send(error);
@@ -29,9 +22,9 @@ router.get("/:id", function(req, res) {
 });
 
 router.post("/", function(req, res) {
-  console.log(req.body);
   db.Todo.create(req.body)
     .then(function(todo) {
+      console.log(todo);
       res.send(todo);
     })
     .catch(function(error) {

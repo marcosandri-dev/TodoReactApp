@@ -5,13 +5,14 @@ const Header = ({ changeRoute }) => {
     <header>
       <div className="row text-center">
         <div className="mx-auto pt-4">
-          <p
+          <h1
+            style={{ fontSize: "60px" }}
             className="logo pointer"
             onClick={() => changeRoute("Login", "")}
             to={"/"}
           >
-            <h1 style={{ fontSize: "60px" }}>ToDoList!</h1>
-          </p>
+            ToDoList!
+          </h1>
         </div>
       </div>
     </header>
