@@ -5,7 +5,7 @@ var express = require("express"),
 
 var cors = require("cors");
 app.use(cors());
-app.use(express.static(__dirname + "/dist"));
+app.use(express.static(__dirname + "/build"));
 
 var todoRoutes = require("./routes/todos");
 var userRoutes = require("./routes/users");

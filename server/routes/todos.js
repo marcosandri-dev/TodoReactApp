@@ -1,7 +1,6 @@
 var express = require("express");
 var router = express.Router();
 var db = require("../models");
-var moment = require("moment");
 
 /*router.get("/", function(req, res) {
   console.log(req.body);
@@ -24,7 +23,6 @@ router.get("/:id", function(req, res) {
 router.post("/", function(req, res) {
   db.Todo.create(req.body)
     .then(function(todo) {
-      console.log(todo);
       res.send(todo);
     })
     .catch(function(error) {

@@ -12,7 +12,8 @@
 
 # production
 /client/build
-/server/dist
+/server/build
+/server/.gitignore
 
 # misc
 .DS_Store

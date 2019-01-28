@@ -10,8 +10,7 @@ class List extends Component {
     this.state = {
       todos: [],
       dates: [],
-      value: "",
-      apiURL: "http://localhost:8000"
+      value: ""
     };
     this.loadTodos();
   }
@@ -25,9 +24,6 @@ class List extends Component {
       this.setState({ dates: dates });
     }
   }
-
-  //apiURL: "https://marcosandritodoapp.herokuapp.com"
-  //apiURL: "http://localhost:8000"
 
   loadTodos = () => {
     http.getTodos(this.props.listName).then(res => {
