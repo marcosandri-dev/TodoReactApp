@@ -5,18 +5,18 @@ class Login extends Component {
     super(props);
     this.clickDiv = React.createRef();
     this.state = {
-      value: ""
+      usernameInput: "",
+      passwordInput: ""
     };
   }
 
   onChange = e => {
-    let upper =
-      e.target.value.charAt(0).toUpperCase() + e.target.value.substr(1);
-    this.setState({ [e.target.name]: upper });
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   onKeyPress = e => {
-    if (e.key === "Enter") this.props.changeRoute("List", this.state.value);
+    if (e.key === "Enter" && this.state.usernameInput !== "")
+      this.props.changeRoute("List", this.state.usernameInput);
   };
 
   render() {
@@ -25,18 +25,44 @@ class Login extends Component {
         style={{ width: "80vw", maxWidth: "400px" }}
         className="login-form pl-4 pr-4 mx-auto mb-5"
       >
-        <h3 className="text-center pt-3">Insert a list name!</h3>
+        <h2 className="text-center pt-3">Login!</h2>
         <hr />
-        <input
-          placeholder="ex. 'My shopping Cart'"
-          id="login-input"
-          type="text"
-          className="form-control"
-          value={this.state.value}
-          onChange={this.onChange}
-          onKeyPress={this.onKeyPress}
-          name="value"
-        />
+        <div className="form-group">
+          <div className="input-group">
+            <div className="input-group-prepend">
+              <span className="input-group-text">
+                <i className="fa fa-user" />
+              </span>
+            </div>
+            <input
+              name="usernameInput"
+              className="form-control"
+              placeholder="username"
+              type="text"
+              value={this.state.usernameInput}
+              onChange={this.onChange}
+              onKeyPress={this.onKeyPress}
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-lock" />
+              </span>
+            </div>
+            <input
+              name="passwordInput"
+              class="form-control"
+              placeholder="******"
+              type="password"
+              value={this.state.passwordInput}
+              onChange={this.onChange}
+              onKeyPress={this.onKeyPress}
+            />
+          </div>
+        </div>
         <hr />
         <div className="row justify-content-center">
           <div className="col-12">
