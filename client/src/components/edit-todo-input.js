@@ -9,7 +9,7 @@ const EditTodoInput = ({
 }) => {
   return (
     <div className="row">
-      <div className="col">
+      <div className="col-12 col-md pb-2">
         <input
           type="text"
           className="form-control form-control-md"
@@ -19,7 +19,7 @@ const EditTodoInput = ({
           name="editTodoInputValue"
         />
       </div>
-      <div className="col-auto">
+      <div className="col-12 text-center col-md-auto">
         <button
           onClick={editTodo}
           type="button"

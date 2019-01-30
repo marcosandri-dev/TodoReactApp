@@ -91,7 +91,7 @@ class List extends Component {
             </div>
           </div>
 
-          <div className="row justify-content-center list pb-3 pt-3 mt-3">
+          <div className="row justify-content-center pb-3 pt-3 mt-3 list">
             <div className="col-12">
               <h2>List: {this.props.listName}</h2>
               <hr />
